@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
+import { Heart } from "lucide-react";
 import { chapters } from "@/data/story";
 import StartScreen from "@/components/StartScreen";
 import StoryChapter from "@/components/StoryChapter";
@@ -107,16 +108,20 @@ export default function Home() {
     }, 100);
   }, []);
 
-  let visibleIndex = chapters.findIndex(c => c.type === "lock");
+  let visibleIndex = 0;
   
-  if (isUnlocked) {
-    visibleIndex = chapters.findIndex(c => c.type === "quiz");
+  if (started) {
+    visibleIndex = chapters.findIndex(c => c.type === "lock");
     
-    if (isQuizFinished || visibleIndex === -1) {
-      visibleIndex = chapters.findIndex(c => c.type === "funny");
+    if (isUnlocked) {
+      visibleIndex = chapters.findIndex(c => c.type === "quiz");
       
-      if (isFunnyFinished || visibleIndex === -1) {
-        visibleIndex = chapters.length - 1;
+      if (isQuizFinished || visibleIndex === -1) {
+        visibleIndex = chapters.findIndex(c => c.type === "funny");
+        
+        if (isFunnyFinished || visibleIndex === -1) {
+          visibleIndex = chapters.length - 1;
+        }
       }
     }
   }
@@ -194,12 +199,18 @@ export default function Home() {
               <section
                 key={chapter.id}
                 id={`chapter-${chapter.id}`}
-                className="snap-section bg-section-ending"
+                className="snap-section bg-section-ending relative"
               >
                 <ChapterDecorations type="ending" />
                 <StoryChapter chapter={chapter} sectionBg="story">
                   <ConfettiButton onReact={triggerConfetti} />
                 </StoryChapter>
+
+                <footer className="absolute bottom-0 w-full py-5 text-center text-xs md:text-sm text-maroon/70 font-medium tracking-[0.2em] uppercase border-t border-maroon/10 bg-white/40 backdrop-blur-md z-20">
+                  <p className="flex items-center justify-center gap-2">
+                    Made With <Heart size={14} className="fill-maroon text-maroon animate-pulse" /> Love
+                  </p>
+                </footer>
               </section>
             );
           }

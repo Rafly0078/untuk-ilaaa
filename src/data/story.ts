@@ -70,7 +70,7 @@ export const chapters: Chapter[] = [
     type: "romantic",
     title: "Jujur aja ya",
     text: `Aku nggak tau ini bakal jadi apa. Tapi aku pengen kamu tauu hal ini ilaaa.`,
-    subtext: "Aku seneng banget bisa kenal kamu dan disayang sayangin sama kamuu. dan aku harap kita berdua bisa lewatin hari hari yang berat bareng barengg. AND REMEMBERRRR I ALWAYS PROUD OF YOUUUU! ❤️",
+    subtext: "Aku seneng banget bisa kenal kamu dan disayang sayangin sama kamuu. dan aku harap kita berdua bisa lewatin hari hari yang berat bareng dan kita terus jalanin hari hari kita bareng barenggg. AND REMEMBERRRR I ALWAYS PROUD OF YOUUUU! ❤️",
     imageSrc: "/images/1000213180.jpg",
     imageAlt: `Foto ${PERSON_NAME}`,
     layout: "right",
@@ -79,7 +79,7 @@ export const chapters: Chapter[] = [
     id: "ending",
     type: "ending",
     title: "Terima Kasih",
-    text: `Terima kasih banyakk ya Ilaaaa udah mau baca sampai akhirr.`,
-    subtext: "Semoga kamu happy terus tiap hariii! 💗",
+    text: `Terima kasih banyakk ya Ilaaaa aku bersyukur banget kita bisa lewatin semua ini sama samaa. I hope someday we can meet each other in person and have fun together!`,
+    subtext: "Semoga kamu happy terus tiap hariii Ilaaa. I will always be your supportive person 💗",
   },
 ];
