@@ -8,15 +8,16 @@ import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 interface FunnyButtonProps {
   onSuccess: () => void;
+  onPopupClose?: () => void;
 }
 
-export default function FunnyButton({ onSuccess }: FunnyButtonProps) {
+export default function FunnyButton({ onSuccess, onPopupClose }: FunnyButtonProps) {
   const [dodgeCount, setDodgeCount] = useState(0);
   const [caught, setCaught] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const maxDodges = 3;
+  const maxDodges = 13;
 
   const dodge = useCallback(() => {
     if (caught) {
@@ -46,11 +47,26 @@ export default function FunnyButton({ onSuccess }: FunnyButtonProps) {
     }
   }, [dodgeCount, caught, onSuccess]);
 
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    if (onPopupClose) onPopupClose();
+  };
+
   const dodgeMessages = [
     "",
     "Eh, meleset 😜",
     "Hampir kena! 😏",
     "Satu lagi...!",
+    "Coba lagi! 😜",
+    "Kamu nggak bisa lari! 😏",
+    "Ini udah kena! 😜",
+    "Aduh, kena deh! 😅",
+    "Gak bisa lari lagi! 😜",
+    "Kamu kena! 😏",
+    "Ini udah kena! 😜",
+    "Aduh, kena deh! 😅",
+    "Gak bisa lari lagi! 😜",
+    "Kamu kena! 😏",
   ];
 
   return (
@@ -82,7 +98,7 @@ export default function FunnyButton({ onSuccess }: FunnyButtonProps) {
           key={dodgeCount}
           className="absolute bottom-2 text-sm text-text-light whitespace-nowrap"
         >
-          {dodgeMessages[dodgeCount]}
+          {dodgeMessages[dodgeCount] || "Satu lagi...!"}
         </p>
       )}
 
@@ -103,7 +119,7 @@ export default function FunnyButton({ onSuccess }: FunnyButtonProps) {
               <div className="washi-tape washi-tape-pink w-16 h-5 absolute -top-3 left-1/2 -translate-x-1/2 opacity-80 tilt-right" />
               
               <button
-                onClick={() => setShowPopup(false)}
+                onClick={handleClosePopup}
                 className="absolute top-3 right-3 text-maroon hover:bg-maroon/10 rounded-full p-1 transition-colors z-10"
               >
                 <X size={20} />
@@ -120,7 +136,7 @@ export default function FunnyButton({ onSuccess }: FunnyButtonProps) {
               </p>
               
               <LiquidButton
-                onClick={() => setShowPopup(false)}
+                onClick={handleClosePopup}
                 className="mt-4 bg-maroon text-white w-full"
               >
                 Makasihhhh ❤️

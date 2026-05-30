@@ -61,6 +61,11 @@ export default function Home() {
     }, 300);
   }, []);
 
+  const triggerConfetti = useCallback(() => {
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 4000);
+  }, []);
+
   const handleUnlock = useCallback(() => {
     setIsUnlocked(true);
     triggerConfetti();
@@ -72,7 +77,7 @@ export default function Home() {
         nextChapter.scrollIntoView({ behavior: "smooth" });
       }
     }, 800);
-  }, []);
+  }, [triggerConfetti]);
 
   const handleQuizFinish = useCallback(() => {
     setIsQuizFinished(true);
@@ -86,14 +91,20 @@ export default function Home() {
     }, 500);
   }, []);
 
-  const handleFunnyFinish = useCallback(() => {
-    setIsFunnyFinished(true);
+  const handleFunnyCatch = useCallback(() => {
     triggerConfetti();
-  }, []);
+  }, [triggerConfetti]);
 
-  const triggerConfetti = useCallback(() => {
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 4000);
+  const handleFunnyClose = useCallback(() => {
+    setIsFunnyFinished(true);
+    
+    // Scroll to the next chapter (romantic)
+    setTimeout(() => {
+      const nextChapter = document.getElementById("chapter-romantic");
+      if (nextChapter && containerRef.current) {
+        nextChapter.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
   }, []);
 
   let visibleIndex = chapters.findIndex(c => c.type === "lock");
@@ -206,7 +217,7 @@ export default function Home() {
                   chapter={chapter}
                   sectionBg="funny"
                 >
-                  <FunnyButton onSuccess={handleFunnyFinish} />
+                  <FunnyButton onSuccess={handleFunnyCatch} onPopupClose={handleFunnyClose} />
                 </StoryChapter>
               </section>
             );
