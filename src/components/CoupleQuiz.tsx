@@ -37,7 +37,11 @@ const questions = [
   },
 ];
 
-export default function CoupleQuiz() {
+interface CoupleQuizProps {
+  onFinish?: () => void;
+}
+
+export default function CoupleQuiz({ onFinish }: CoupleQuizProps = {}) {
   const [currentQ, setCurrentQ] = useState(0);
   const [finalAttempts, setFinalAttempts] = useState(0);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
@@ -79,6 +83,7 @@ export default function CoupleQuiz() {
   const handleClosePopup = () => {
     setShowErrorPopup(false);
     setQuizFinished(true);
+    onFinish?.();
   };
 
   if (quizFinished) {

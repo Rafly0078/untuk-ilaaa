@@ -45,7 +45,7 @@ export const chapters: Chapter[] = [
     text: "Yang bikin aku suka?",
     subtext:
       "caramu cerita, caramu bikin aku senyum, salting, gemes, dan dikirimim pap imutt sama voice note kith kith.",
-    imageSrc: "/images/1000212379.jpg",
+    imageSrc: "/images/1000211858.png",
     imageAlt: `Foto ${PERSON_NAME}`,
     layout: "left",
   },

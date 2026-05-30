@@ -19,6 +19,8 @@ export default function Home() {
   const [started, setStarted] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isQuizFinished, setIsQuizFinished] = useState(false);
+  const [isFunnyFinished, setIsFunnyFinished] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -72,14 +74,43 @@ export default function Home() {
     }, 800);
   }, []);
 
+  const handleQuizFinish = useCallback(() => {
+    setIsQuizFinished(true);
+    
+    // Scroll to the next chapter (funny)
+    setTimeout(() => {
+      const nextChapter = document.getElementById("chapter-funny");
+      if (nextChapter && containerRef.current) {
+        nextChapter.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 500);
+  }, []);
+
+  const handleFunnyFinish = useCallback(() => {
+    setIsFunnyFinished(true);
+    triggerConfetti();
+  }, []);
+
   const triggerConfetti = useCallback(() => {
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 4000);
   }, []);
 
-  const visibleChapters = isUnlocked
-    ? chapters
-    : chapters.slice(0, chapters.findIndex((c) => c.type === "lock") + 1);
+  let visibleIndex = chapters.findIndex(c => c.type === "lock");
+  
+  if (isUnlocked) {
+    visibleIndex = chapters.findIndex(c => c.type === "quiz");
+    
+    if (isQuizFinished || visibleIndex === -1) {
+      visibleIndex = chapters.findIndex(c => c.type === "funny");
+      
+      if (isFunnyFinished || visibleIndex === -1) {
+        visibleIndex = chapters.length - 1;
+      }
+    }
+  }
+  
+  const visibleChapters = chapters.slice(0, visibleIndex !== -1 ? visibleIndex + 1 : chapters.length);
 
   return (
     <>
@@ -140,7 +171,7 @@ export default function Home() {
               >
                 <ChapterDecorations type="funny" />
                 <StoryChapter chapter={chapter} sectionBg="funny">
-                  <CoupleQuiz />
+                  <CoupleQuiz onFinish={handleQuizFinish} />
                 </StoryChapter>
               </section>
             );
@@ -175,7 +206,7 @@ export default function Home() {
                   chapter={chapter}
                   sectionBg="funny"
                 >
-                  <FunnyButton onSuccess={triggerConfetti} />
+                  <FunnyButton onSuccess={handleFunnyFinish} />
                 </StoryChapter>
               </section>
             );
