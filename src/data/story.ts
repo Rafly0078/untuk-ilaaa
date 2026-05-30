@@ -42,7 +42,7 @@ export const chapters: Chapter[] = [
     id: "little-things",
     type: "story",
     title: "Hal kecil",
-    text: "Yang bikin aku suka? Hal kecil.",
+    text: "Yang bikin aku suka?",
     subtext:
       "caramu cerita, caramu bikin aku senyum, salting, gemes, dan dikirimim pap imutt sama voice note kith kith.",
     imageSrc: "/images/1000212379.jpg",

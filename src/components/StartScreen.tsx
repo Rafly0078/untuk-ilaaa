@@ -19,7 +19,7 @@ export default function StartScreen({
 }: StartScreenProps) {
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(
-    () => ["lucu", "spesial", "manis", "berbeda", "kecil"],
+    () => ["Lucu", "Spesial", "Sweet", "Imup", "Kecil", "Unik", "Istimewa", "Penuh Cinta", "Ga Seberapa"],
     []
   );
 
