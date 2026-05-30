@@ -1,0 +1,374 @@
+@import "tailwindcss";
+
+:root {
+  /* Maroon-based romantic palette */
+  --maroon: #800020;
+  --maroon-dark: #5c0017;
+  --maroon-light: #a3324d;
+  --rose: #c9707d;
+  --rose-light: #e8a8b0;
+  --blush: #fadadd;
+  --blush-light: #fef0f1;
+  --cream: #fff8f0;
+  --champagne: #f5e6cc;
+  --gold: #d4a574;
+  --text-dark: #2d1018;
+  --text-medium: #5c2e3a;
+  --text-light: #8b5a6a;
+
+  --background: var(--cream);
+  --foreground: var(--text-dark);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-maroon: var(--maroon);
+  --color-maroon-dark: var(--maroon-dark);
+  --color-maroon-light: var(--maroon-light);
+  --color-rose: var(--rose);
+  --color-rose-light: var(--rose-light);
+  --color-blush: var(--blush);
+  --color-blush-light: var(--blush-light);
+  --color-cream: var(--cream);
+  --color-champagne: var(--champagne);
+  --color-gold: var(--gold);
+  --color-text-dark: var(--text-dark);
+  --color-text-medium: var(--text-medium);
+  --color-text-light: var(--text-light);
+  --font-sans: var(--font-outfit);
+  --font-handwriting: var(--font-caveat);
+}
+
+/* ── Global resets ── */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--cream);
+  color: var(--text-dark);
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Scroll snap container ── */
+.snap-container {
+  height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-section {
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1.5rem;
+}
+
+
+
+/* ── Floating hearts ── */
+@keyframes float-up {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(var(--drift, 20px)) rotate(var(--spin, 45deg)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.heart-particle {
+  position: absolute;
+  bottom: -20px;
+  animation: float-up var(--duration, 6s) var(--delay, 0s) ease-out infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+  font-size: var(--size, 1.2rem);
+}
+
+/* ── Confetti ── */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(var(--confetti-spin, 720deg));
+    opacity: 0;
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confetti-fall var(--confetti-duration, 3s) var(--confetti-delay, 0s) ease-in forwards;
+  pointer-events: none;
+  will-change: transform, opacity;
+  z-index: 100;
+}
+
+/* ── Funny button dodge ── */
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.btn-float {
+  animation: subtle-float 3s ease-in-out infinite;
+}
+
+/* ── Music button pulse ── */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(128, 0, 32, 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(128, 0, 32, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(128, 0, 32, 0);
+  }
+}
+
+.music-pulse {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* ── Glassmorphism card ── */
+.glass-card {
+  background: rgba(255, 248, 240, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(128, 0, 32, 0.1);
+  border-radius: 1.5rem;
+}
+
+/* ── Gradient backgrounds per section ── */
+.bg-section-intro {
+  background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 50%, var(--champagne) 100%);
+}
+
+.bg-section-story-1 {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--blush-light) 100%);
+}
+
+.bg-section-story-2 {
+  background: linear-gradient(200deg, var(--blush) 0%, var(--cream) 60%, var(--champagne) 100%);
+}
+
+.bg-section-funny {
+  background: linear-gradient(160deg, var(--champagne) 0%, var(--cream) 50%, var(--blush-light) 100%);
+}
+
+.bg-section-romantic {
+  background: linear-gradient(180deg, var(--blush) 0%, var(--rose-light) 40%, var(--blush) 100%);
+}
+
+.bg-section-ending {
+  background: linear-gradient(160deg, var(--cream) 0%, var(--blush-light) 50%, var(--champagne) 100%);
+  color: var(--text-dark);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .snap-container {
+    scroll-snap-type: none;
+  }
+
+  .heart-particle,
+  .confetti-piece,
+  .btn-float {
+    animation: none !important;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ── Scrollbar styling ── */
+.snap-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.snap-container::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+.snap-container::-webkit-scrollbar-thumb {
+  background: var(--rose-light);
+  border-radius: 4px;
+}
+
+.snap-container::-webkit-scrollbar-thumb:hover {
+  background: var(--rose);
+}
+
+/* ── Scrapbook styles ── */
+
+/* Polaroid photo frame */
+.polaroid {
+  background: white;
+  padding: 8px 8px 32px 8px;
+  box-shadow:
+    0 4px 12px rgba(45, 16, 24, 0.1),
+    0 1px 3px rgba(45, 16, 24, 0.06);
+  border-radius: 2px;
+}
+
+/* Washi tape strip */
+.washi-tape {
+  position: absolute;
+  width: 80px;
+  height: 24px;
+  border-radius: 1px;
+  opacity: 0.75;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.washi-tape-pink {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(250, 218, 221, 0.85),
+    rgba(250, 218, 221, 0.85) 4px,
+    rgba(232, 168, 176, 0.6) 4px,
+    rgba(232, 168, 176, 0.6) 8px
+  );
+}
+
+.washi-tape-gold {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(245, 230, 204, 0.85),
+    rgba(245, 230, 204, 0.85) 4px,
+    rgba(212, 165, 116, 0.5) 4px,
+    rgba(212, 165, 116, 0.5) 8px
+  );
+}
+
+.washi-tape-maroon {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(128, 0, 32, 0.15),
+    rgba(128, 0, 32, 0.15) 4px,
+    rgba(128, 0, 32, 0.08) 4px,
+    rgba(128, 0, 32, 0.08) 8px
+  );
+}
+
+/* Push pin */
+.push-pin {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  z-index: 10;
+  pointer-events: none;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.push-pin::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: #666;
+  border-radius: 0 0 1px 1px;
+}
+
+/* Handwriting note */
+.handwriting {
+  font-family: var(--font-caveat), cursive;
+}
+
+/* Paper note card */
+.paper-note {
+  background: #fffef7;
+  box-shadow:
+    0 1px 4px rgba(45, 16, 24, 0.08),
+    0 0 0 1px rgba(45, 16, 24, 0.03);
+  border-radius: 2px;
+  position: relative;
+}
+
+.paper-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(128, 0, 32, 0.04) 27px,
+    rgba(128, 0, 32, 0.04) 28px
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Sticker pop-in animation */
+@keyframes sticker-pop {
+  0% {
+    transform: scale(0) rotate(-15deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15) rotate(3deg);
+  }
+  80% {
+    transform: scale(0.95) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(var(--sticker-rotate, 0deg));
+    opacity: 1;
+  }
+}
+
+.sticker {
+  animation: sticker-pop 0.6s var(--sticker-delay, 0s) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  pointer-events: none;
+}
+
+/* Tape + tilt rotation presets */
+.tilt-left { transform: rotate(-3deg); }
+.tilt-right { transform: rotate(3deg); }
+.tilt-left-sm { transform: rotate(-1.5deg); }
+.tilt-right-sm { transform: rotate(1.5deg); }
